@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "args": [
+        "test/**/*.js",
+        "-t",
+        "60000",
+        "--color"
+      ],
+      "env": {
+        "AWS_REGION": "eu-west-2"
+      },
+      "cwd": "${workspaceRoot}"
+    },
+  ]
+}
