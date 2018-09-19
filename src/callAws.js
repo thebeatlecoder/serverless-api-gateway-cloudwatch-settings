@@ -1,7 +1,7 @@
 'use strict';
 
 const AWS = require('aws-sdk');
-const empty = require('lodash.isEmpty');
+const empty = require('lodash.isempty');
 const { retrieveRestApiId } = require('./restApiId');
 const PLUGIN_NAME = 'serverless-api-gateway-cloudwatch-settings';
 const DEFAULT_LOG_LEVEL = 'OFF';
