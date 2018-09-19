@@ -13,7 +13,7 @@ const createPatchOperationsBasedOn = (settings) => {
   }];
 };
 
-const updateApiStage = async (serverless, settings) => {
+const toUpdateApiStage = async (serverless, settings) => {
   if (empty(settings)) {
     return;
   }
@@ -33,5 +33,5 @@ const updateApiStage = async (serverless, settings) => {
 
 
 module.exports = {
-  toUpdateApiStage: updateApiStage
+  toUpdateApiStage
 };

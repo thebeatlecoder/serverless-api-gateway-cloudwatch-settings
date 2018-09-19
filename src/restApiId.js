@@ -21,7 +21,7 @@ const retrieveRestApiId = async (serverless, settings) => {
     settings.region
   );
   const outputs = cloudFormation.Stacks[0].Outputs;
-  const restApiKey = outputs.find(({ OutputKey }) => OutputKey === 'REST_API_ID_KEY').OutputValue;
+  const restApiKey = outputs.find(({ OutputKey }) => OutputKey === REST_API_ID_KEY).OutputValue;
 
   return restApiKey;
 };

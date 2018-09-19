@@ -25,7 +25,7 @@ class Plugin {
   }
 
   updateApiStage() {
-    return callAws.toUpdateStage(this.serverless, this.apiStageSettings);
+    return callAws.toUpdateApiStage(this.serverless, this.apiStageSettings);
   }
 }
 
