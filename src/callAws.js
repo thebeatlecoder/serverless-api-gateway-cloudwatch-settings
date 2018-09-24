@@ -26,12 +26,9 @@ const toUpdateApiStage = async (serverless, settings) => {
   }
   const restApiId = await retrieveRestApiId(serverless, settings);
   const patchOperations = createPatchOperationsBasedOn(settings);
-
-  const apiGateway = new AWS.APIGateway();
-  const request = { restApiId, stageName: settings.stage, patchOperations };
-
+  
   serverless.cli.log(`[${pluginName}] Updating API Gateway CloudWatch settings...`);
-  await apiGateway.updateStage(request).promise();
+  const request = { restApiId, stageName: settings.stage, patchOperations };
   await serverless.providers.aws.request('APIGateway', 'updateStage', request, settings.stage, settings.region);
   serverless.cli.log(`[${pluginName}] Finished updating API Gateway CloudWatch settings.`);
 };
