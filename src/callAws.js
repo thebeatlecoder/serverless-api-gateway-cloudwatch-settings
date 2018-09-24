@@ -1,6 +1,5 @@
 'use strict';
 
-const AWS = require('aws-sdk');
 const empty = require('lodash.isempty');
 const pluginName = require('./pluginName');
 const { retrieveRestApiId } = require('./restApiId');
@@ -25,17 +24,15 @@ const toUpdateApiStage = async (serverless, settings) => {
   if (empty(settings)) {
     return;
   }
-  AWS.config.update({ region: settings.region });
-
   const restApiId = await retrieveRestApiId(serverless, settings);
-  const stageName = settings.stage;
   const patchOperations = createPatchOperationsBasedOn(settings);
 
   const apiGateway = new AWS.APIGateway();
-  const request = { restApiId, stageName, patchOperations };
+  const request = { restApiId, stageName: settings.stage, patchOperations };
 
   serverless.cli.log(`[${pluginName}] Updating API Gateway CloudWatch settings...`);
   await apiGateway.updateStage(request).promise();
+  await serverless.providers.aws.request('APIGateway', 'updateStage', request, settings.stage, settings.region);
   serverless.cli.log(`[${pluginName}] Finished updating API Gateway CloudWatch settings.`);
 };
 
