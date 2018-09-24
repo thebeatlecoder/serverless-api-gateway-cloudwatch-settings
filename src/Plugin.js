@@ -1,6 +1,8 @@
 'use strict';
 
+const empty = require('lodash.isempty');
 const ApiStageSettings = require('./ApiStageSettings');
+const pluginName = require('./pluginName');
 const callAws = require('./callAws');
 const { outputRestApiIdTo } = require('./restApiId');
 
@@ -25,7 +27,16 @@ class Plugin {
   }
 
   updateApiStage() {
+    if (!this.cloudFormationContainsARestApi) {
+      this.serverless.cli.log(`[${pluginName}] Not performing an update because no REST API was found.`);
+      return;
+    }
     return callAws.toUpdateApiStage(this.serverless, this.apiStageSettings);
+  }
+
+  cloudFormationContainsARestApi() {
+    const restApi = this.serverless.service.provider.compiledCloudFormationTemplate.Resources['ApiGatewayRestApi'];
+    return !empty(restApi);
   }
 }
 
