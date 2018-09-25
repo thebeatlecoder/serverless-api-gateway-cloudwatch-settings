@@ -1,6 +1,6 @@
 {
   "name": "serverless-api-gateway-cloudwatch-settings",
-  "version": "1.1.0",
+  "version": "1.2.0-rc1",
   "description": "A Serverless v1.x plugin that enables you to easily configure the CloudWatch settings for an API Gateway.",
   "main": "src/Plugin.js",
   "scripts": {
