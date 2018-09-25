@@ -23,15 +23,17 @@ class Plugin {
   }
 
   interceptRestApiId() {
-    outputRestApiIdTo(this.serverless);
+    if (this.cloudFormationContainsARestApi()) {
+      outputRestApiIdTo(this.serverless);
+    }
   }
 
   updateApiStage() {
-    if (!this.cloudFormationContainsARestApi) {
-      this.serverless.cli.log(`[${pluginName}] Not performing an update because no REST API was found.`);
-      return;
-    }
-    return callAws.toUpdateApiStage(this.serverless, this.apiStageSettings);
+    if (this.cloudFormationContainsARestApi()) {
+      return callAws.toUpdateApiStage(this.serverless, this.apiStageSettings);
+    } else {
+      this.serverless.cli.log(`[${pluginName}] Not performing an update because no REST API was found.`); 
+    }    
   }
 
   cloudFormationContainsARestApi() {
