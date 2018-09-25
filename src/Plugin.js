@@ -23,7 +23,9 @@ class Plugin {
   }
 
   interceptRestApiId() {
-    outputRestApiIdTo(this.serverless);
+    if (!this.cloudFormationContainsARestApi) {
+      outputRestApiIdTo(this.serverless);
+    }
   }
 
   updateApiStage() {
